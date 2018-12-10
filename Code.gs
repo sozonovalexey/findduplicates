@@ -44,7 +44,7 @@ function getSheets() {
   list = spreadSheetsInA.map(function(sheet) {
     return sheet.getName();
   });
-  
+
   return list;
 }
 
@@ -68,15 +68,15 @@ function findDuplicates() {
   var currentSheet = ss.getActiveSheet();
   var currentSheetName = currentSheet.getName();
   var currentColumn = getFullColumn(currentSheetName);
-  
+
   var sheets = getSheets();
   for (i in sheets) {
-    
+
     var sheetName = sheets[i];
     if (sheetName === currentSheetName) {
       break;
     }
-    
+
     var column = getFullColumn(sheetName);
     for (k in currentColumn) {
       var currentRow = currentColumn[k];
@@ -85,15 +85,15 @@ function findDuplicates() {
       for (j in column) {
         var row = column[j];
         var value = row[0];
-        
-        if (value === searchPhrase) {   
+
+        if (value !== '' && typeof value === 'string' && value === searchPhrase && value.indexOf('Concept Group #') > -1) {
           var cellIndex = parseInt(k)+1;
           var a1Notation = 'A' + cellIndex;
           currentSheet.getRange(a1Notation).setBackground("yellow");
         }
-        
+
       }
-      
+
     }
   }
 }
